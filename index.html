@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ты меня любишь?</title>
+    <title>Ты меня любишь</title>
     <style>
         body {
             display: flex;
@@ -23,14 +23,12 @@
             transform: translateY(30px);
             animation: fadeInUp 1s forwards;
         }
-
         @keyframes fadeInUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         .fade-out {
             transform: scale(0);
             opacity: 0;
@@ -82,13 +80,6 @@
         let yesScale = 1;
         let noScale = 1;
 
-        // Функция для анимации появления гифки
-        function animateGif(newGif) {
-            newGif.style.opacity = 0;
-            newGif.style.transform = 'translateY(30px)';
-            newGif.style.animation = 'fadeInUp 1s forwards';
-        }
-
         noButton.addEventListener('click', () => {
             yesScale += 0.3;
             yesButton.style.transform = `scale(${yesScale})`;
@@ -103,16 +94,15 @@
             if (yesScale > 1.2) {
                 text.textContent = 'ахуел?';
                 gif.src = 'angry.gif';
-                animateGif(gif); // Анимация для новой гифки
+                gif.style.animation = 'fadeInUp 1s forwards'; // Анимация при смене гифки
             }
             if (yesScale > 1.5) {
                 text.textContent = 'да ты чееее';
                 gif.src = 'angry1.gif';
-                animateGif(gif); // Анимация для новой гифки
+                gif.style.animation = 'fadeInUp 1s forwards'; // Анимация при смене гифки
             }
             if (yesScale > 1.7) {
                 text.textContent = 'а хуй тебе';
-                gif.src = 'angry2.gif';
             }
             if (yesScale > 2) {
                 text.textContent = ' ';
@@ -123,10 +113,10 @@
         });
 
         yesButton.addEventListener('click', () => {
-            text.textContent = 'Ты ж моя умничка!';
+            text.textContent = 'Тыж моя умничка!';
             text.style.marginTop = '20px';
             gif.src = 'love1.gif';
-            animateGif(gif); // Анимация для новой гифки
+            gif.style.animation = 'fadeInUp 1s forwards'; // Анимация при смене гифки
             yesButton.remove();
             noButton.remove();
         });
