@@ -44,6 +44,8 @@
         .buttons {
             display: flex;
             gap: 20px;
+            position: relative;
+            z-index: 100; /* Убедитесь, что кнопки будут поверх других элементов */
         }
         .buttons button {
             padding: 10px 20px;
@@ -82,11 +84,15 @@
         let yesScale = 1;
         let noScale = 1;
 
-        // Функция для анимации появления гифки
+        // Функция для анимации появления гифки с плавным переходом
         function animateGif(newGif) {
             newGif.style.opacity = 0;
             newGif.style.transform = 'translateY(30px)';
-            newGif.style.animation = 'fadeInUp 1s forwards';
+            newGif.style.transition = 'opacity 1s, transform 1s'; // Плавный переход
+            setTimeout(() => {
+                newGif.style.opacity = 1;
+                newGif.style.transform = 'translateY(0)';
+            }, 100); // Немного задерживаем для плавного появления
         }
 
         noButton.addEventListener('click', () => {
@@ -113,6 +119,7 @@
             if (yesScale > 1.7) {
                 text.textContent = 'а хуй тебе';
                 gif.src = 'angry2.gif';
+                animateGif(gif); // Анимация для новой гифки
             }
             if (yesScale > 2) {
                 text.textContent = ' ';
@@ -123,7 +130,7 @@
         });
 
         yesButton.addEventListener('click', () => {
-            text.textContent = 'Тыж моя умничка!';
+            text.textContent = 'Ты ж моя умничка!';
             text.style.marginTop = '20px';
             gif.src = 'love1.gif';
             animateGif(gif); // Анимация для новой гифки
