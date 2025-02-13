@@ -205,13 +205,18 @@ yesButton.addEventListener('click', function onYesClick() {
     // Массив для хранения всех гифок
     const gifs = [];
     const maxGifs = 2; // Максимальное количество гифок на экране
+    const minDistance = 100; // Минимальное расстояние между гифками
+    const speed = 1.5; // Скорость движения гифок
+    const collisionCooldown = 500; // Задержка между сменами направлений при столкновении (в миллисекундах)
 
     // Функция для создания и анимации гифок
     function createDancingGif() {
+        if (gifs.length >= maxGifs) return; // Не создаем больше гифок, если достигнут лимит
+
         const dancingGif = document.createElement('img');
         dancingGif.src = 'kot1.gif'; // Убедитесь, что гифка 'kot1.gif' доступна
         dancingGif.style.position = 'absolute';
-        dancingGif.style.width = '150px'; // Увеличиваем размер гифки
+        dancingGif.style.width = '100px'; // Размер гифки
         dancingGif.style.height = 'auto';
 
         // Начальные координаты (в пределах экрана)
@@ -225,7 +230,11 @@ yesButton.addEventListener('click', function onYesClick() {
 
             // Проверяем, пересекается ли новая гифка с уже существующими
             for (const otherGif of gifs) {
-                if (isColliding({ x, y, width: dancingGif.width, height: dancingGif.height }, otherGif)) {
+                const dx = x - otherGif.x;
+                const dy = y - otherGif.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < minDistance) {
                     isOverlapping = true;
                     break;
                 }
@@ -239,10 +248,18 @@ yesButton.addEventListener('click', function onYesClick() {
         // Направление движения (случайные углы)
         let xDirection = Math.random() > 0.5 ? 1 : -1;
         let yDirection = Math.random() > 0.5 ? 1 : -1;
-        const speed = 2; // Скорость движения
 
         // Добавляем гифку в массив
-        const gifObject = { element: dancingGif, x, y, xDirection, yDirection, width: dancingGif.width, height: dancingGif.height };
+        const gifObject = {
+            element: dancingGif,
+            x,
+            y,
+            xDirection,
+            yDirection,
+            width: dancingGif.width,
+            height: dancingGif.height,
+            lastCollisionTime: 0, // Время последнего столкновения
+        };
         gifs.push(gifObject);
 
         // Анимация движения гифки
@@ -264,15 +281,23 @@ yesButton.addEventListener('click', function onYesClick() {
             dancingGif.style.top = `${gifObject.y}px`;
 
             // Проверка столкновений с другими гифками
-            gifs.forEach(otherGif => {
-                if (otherGif !== gifObject && isColliding(gifObject, otherGif)) {
-                    // Меняем направления при столкновении
-                    gifObject.xDirection *= -1;
-                    gifObject.yDirection *= -1;
-                    otherGif.xDirection *= -1;
-                    otherGif.yDirection *= -1;
-                }
-            });
+            if (Date.now() - gifObject.lastCollisionTime > collisionCooldown) {
+                gifs.forEach(otherGif => {
+                    if (otherGif !== gifObject && isColliding(gifObject, otherGif)) {
+                        // Меняем направления при столкновении
+                        const tempXDirection = gifObject.xDirection;
+                        const tempYDirection = gifObject.yDirection;
+                        gifObject.xDirection = otherGif.xDirection;
+                        gifObject.yDirection = otherGif.yDirection;
+                        otherGif.xDirection = tempXDirection;
+                        otherGif.yDirection = tempYDirection;
+
+                        // Обновляем время последнего столкновения
+                        gifObject.lastCollisionTime = Date.now();
+                        otherGif.lastCollisionTime = Date.now();
+                    }
+                });
+            }
 
             requestAnimationFrame(moveGif);
         };
@@ -283,6 +308,7 @@ yesButton.addEventListener('click', function onYesClick() {
         setTimeout(() => {
             dancingGif.remove();
             gifs.splice(gifs.indexOf(gifObject), 1); // Удаляем гифку из массива
+            createDancingGif(); // Создаем новую гифку после удаления старой
         }, 10000); // Гифка исчезает через 10 секунд
     }
 
@@ -296,10 +322,9 @@ yesButton.addEventListener('click', function onYesClick() {
         );
     }
 
-    // Создаем несколько гифок
-    for (let i = 0; i < 5; i++) { // Создаем 5 гифок
-        setTimeout(createDancingGif, i * 2000); // Каждая новая гифка появляется через 2 секунды
-    }
+    // Создаем две гифки
+    createDancingGif();
+    createDancingGif();
 });
         // Предзагрузка изображений
         const preloadImages = ['love.gif', 'angry.gif', 'angry1.gif', 'angry2.gif', 'love1.gif'];
