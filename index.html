@@ -208,7 +208,7 @@ yesButton.addEventListener('click', function onYesClick() {
 
     // Функция для создания и анимации гифок
     function createDancingGif() {
-        if (gifs.length = maxGifs) return; // Не создаем больше гифок, если достигнут лимит
+        if (gifs.length == maxGifs) return; // Не создаем больше гифок, если достигнут лимит
 
         const dancingGif = document.createElement('img');
         dancingGif.src = 'kot1.gif'; // Убедитесь, что гифка 'kot1.gif' доступна
