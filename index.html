@@ -208,12 +208,10 @@ yesButton.addEventListener('click', function onYesClick() {
 
     // Функция для создания и анимации гифок
     function createDancingGif() {
-        if (gifs.length == maxGifs) return; // Не создаем больше гифок, если достигнут лимит
-
         const dancingGif = document.createElement('img');
         dancingGif.src = 'kot1.gif'; // Убедитесь, что гифка 'kot1.gif' доступна
         dancingGif.style.position = 'absolute';
-        dancingGif.style.width = '100px'; // Уменьшаем размер гифки для мобильных устройств
+        dancingGif.style.width = '150px'; // Увеличиваем размер гифки
         dancingGif.style.height = 'auto';
 
         // Начальные координаты (в пределах экрана)
@@ -269,12 +267,10 @@ yesButton.addEventListener('click', function onYesClick() {
             gifs.forEach(otherGif => {
                 if (otherGif !== gifObject && isColliding(gifObject, otherGif)) {
                     // Меняем направления при столкновении
-                    const tempXDirection = gifObject.xDirection;
-                    const tempYDirection = gifObject.yDirection;
-                    gifObject.xDirection = otherGif.xDirection;
-                    gifObject.yDirection = otherGif.yDirection;
-                    otherGif.xDirection = tempXDirection;
-                    otherGif.yDirection = tempYDirection;
+                    gifObject.xDirection *= -1;
+                    gifObject.yDirection *= -1;
+                    otherGif.xDirection *= -1;
+                    otherGif.yDirection *= -1;
                 }
             });
 
@@ -284,10 +280,11 @@ yesButton.addEventListener('click', function onYesClick() {
         moveGif();
 
         // Удаление гифки через некоторое время
-       // Удаление гифки через некоторое время
-              // Удаление гифки через некоторое время
-
-    
+        setTimeout(() => {
+            dancingGif.remove();
+            gifs.splice(gifs.indexOf(gifObject), 1); // Удаляем гифку из массива
+        }, 10000); // Гифка исчезает через 10 секунд
+    }
 
     // Функция для проверки столкновений
     function isColliding(gif1, gif2) {
@@ -299,9 +296,10 @@ yesButton.addEventListener('click', function onYesClick() {
         );
     }
 
-    // Создаем две гифки
-    createDancingGif();
-    createDancingGif();
+    // Создаем несколько гифок
+    for (let i = 0; i < 5; i++) { // Создаем 5 гифок
+        setTimeout(createDancingGif, i * 2000); // Каждая новая гифка появляется через 2 секунды
+    }
 });
         // Предзагрузка изображений
         const preloadImages = ['love.gif', 'angry.gif', 'angry1.gif', 'angry2.gif', 'love1.gif'];
