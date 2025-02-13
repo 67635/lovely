@@ -284,12 +284,12 @@ yesButton.addEventListener('click', function onYesClick() {
         moveGif();
 
         // Удаление гифки через некоторое время
+       // Удаление гифки через некоторое время
         setTimeout(() => {
             dancingGif.remove();
             gifs.splice(gifs.indexOf(gifObject), 1); // Удаляем гифку из массива
-            createDancingGif(); // Создаем новую гифку после удаления старой
         }, 10000); // Гифка исчезает через 10 секунд
-    }
+    
 
     // Функция для проверки столкновений
     function isColliding(gif1, gif2) {
