@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>*имя* ты меня любишь?</title>
+    <title>ты меня любишь?</title>
     <style>
         body {
             display: flex;
@@ -204,11 +204,11 @@ yesButton.addEventListener('click', function onYesClick() {
 
     // Массив для хранения всех гифок
     const gifs = [];
-    const maxGifs = 2; // Максимальное количество гифок на экране
+    const maxGifs = 1; // Максимальное количество гифок на экране
 
     // Функция для создания и анимации гифок
     function createDancingGif() {
-        if (gifs.length >= maxGifs) return; // Не создаем больше гифок, если достигнут лимит
+        if (gifs.length = maxGifs) return; // Не создаем больше гифок, если достигнут лимит
 
         const dancingGif = document.createElement('img');
         dancingGif.src = 'kot1.gif'; // Убедитесь, что гифка 'kot1.gif' доступна
@@ -304,8 +304,6 @@ yesButton.addEventListener('click', function onYesClick() {
     // Создаем две гифки
     createDancingGif();
     createDancingGif();
-});
-});
 });
         // Предзагрузка изображений
         const preloadImages = ['love.gif', 'angry.gif', 'angry1.gif', 'angry2.gif', 'love1.gif'];
