@@ -210,7 +210,7 @@ yesButton.addEventListener('click', function onYesClick() {
         const dancingGif = document.createElement('img');
         dancingGif.src = 'kot1.gif'; // Убедитесь, что гифка 'kot1.gif' доступна
         dancingGif.style.position = 'absolute';
-        dancingGif.style.width = '150px'; // Увеличиваем размер гифки
+        dancingGif.style.width = '100px'; // Уменьшаем размер гифки для мобильных устройств
         dancingGif.style.height = 'auto';
 
         // Начальные координаты (в пределах экрана)
@@ -266,10 +266,12 @@ yesButton.addEventListener('click', function onYesClick() {
             gifs.forEach(otherGif => {
                 if (otherGif !== gifObject && isColliding(gifObject, otherGif)) {
                     // Меняем направления при столкновении
-                    gifObject.xDirection *= -1;
-                    gifObject.yDirection *= -1;
-                    otherGif.xDirection *= -1;
-                    otherGif.yDirection *= -1;
+                    const tempXDirection = gifObject.xDirection;
+                    const tempYDirection = gifObject.yDirection;
+                    gifObject.xDirection = otherGif.xDirection;
+                    gifObject.yDirection = otherGif.yDirection;
+                    otherGif.xDirection = tempXDirection;
+                    otherGif.yDirection = tempYDirection;
                 }
             });
 
@@ -296,9 +298,10 @@ yesButton.addEventListener('click', function onYesClick() {
     }
 
     // Создаем несколько гифок
-    for (let i = 0; i < 5; i++) { // Создаем 5 гифок
+    for (let i = 0; i < 3; i++) { // Уменьшаем количество гифок для мобильных устройств
         setTimeout(createDancingGif, i * 2000); // Каждая новая гифка появляется через 2 секунды
     }
+});
 });
         // Предзагрузка изображений
         const preloadImages = ['love.gif', 'angry.gif', 'angry1.gif', 'angry2.gif', 'love1.gif'];
