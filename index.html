@@ -204,14 +204,14 @@ yesButton.addEventListener('click', function onYesClick() {
 
     // Массив для хранения всех гифок
     const gifs = [];
-    const maxGifs = 2; // Максимальное количество гифок на экране
+    const maxGifs = 1; // Максимальное количество гифок на экране
     const minDistance = 100; // Минимальное расстояние между гифками
     const speed = 1.5; // Скорость движения гифок
     const collisionCooldown = 500; // Задержка между сменами направлений при столкновении (в миллисекундах)
 
     // Функция для создания и анимации гифок
     function createDancingGif() {
-        if (gifs.length >= maxGifs) return; // Не создаем больше гифок, если достигнут лимит
+        if (gifs.length == maxGifs) return; // Не создаем больше гифок, если достигнут лимит
 
         const dancingGif = document.createElement('img');
         dancingGif.src = 'kot1.gif'; // Убедитесь, что гифка 'kot1.gif' доступна
@@ -304,15 +304,9 @@ yesButton.addEventListener('click', function onYesClick() {
 
         moveGif();
 
-        // Удаление гифки через некоторое время
-        setTimeout(() => {
-            dancingGif.remove();
-            gifs.splice(gifs.indexOf(gifObject), 1); // Удаляем гифку из массива
-            createDancingGif(); // Создаем новую гифку после удаления старой
-        }, 10000); // Гифка исчезает через 10 секунд
+        // Удаление гифки через некоторое время (без создания новой)// Гифка исчезает через 10 секунд
     }
 
-    // Функция для проверки столкновений
     function isColliding(gif1, gif2) {
         return !(
             gif1.x + gif1.width < gif2.x ||
