@@ -204,9 +204,12 @@ yesButton.addEventListener('click', function onYesClick() {
 
     // Массив для хранения всех гифок
     const gifs = [];
+    const maxGifs = 2; // Максимальное количество гифок на экране
 
     // Функция для создания и анимации гифок
     function createDancingGif() {
+        if (gifs.length >= maxGifs) return; // Не создаем больше гифок, если достигнут лимит
+
         const dancingGif = document.createElement('img');
         dancingGif.src = 'kot1.gif'; // Убедитесь, что гифка 'kot1.gif' доступна
         dancingGif.style.position = 'absolute';
@@ -284,6 +287,7 @@ yesButton.addEventListener('click', function onYesClick() {
         setTimeout(() => {
             dancingGif.remove();
             gifs.splice(gifs.indexOf(gifObject), 1); // Удаляем гифку из массива
+            createDancingGif(); // Создаем новую гифку после удаления старой
         }, 10000); // Гифка исчезает через 10 секунд
     }
 
@@ -297,10 +301,10 @@ yesButton.addEventListener('click', function onYesClick() {
         );
     }
 
-    // Создаем несколько гифок
-    for (let i = 0; i < 3; i++) { // Уменьшаем количество гифок для мобильных устройств
-        setTimeout(createDancingGif, i * 2000); // Каждая новая гифка появляется через 2 секунды
-    }
+    // Создаем две гифки
+    createDancingGif();
+    createDancingGif();
+});
 });
 });
         // Предзагрузка изображений
