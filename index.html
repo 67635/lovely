@@ -1,3 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>*имя* ты меня любишь?</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #ffebee;
+            position: relative;
+            opacity: 0;
+            animation: fadeInPage 1s forwards;
+        }
+
+        @keyframes fadeInPage {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .gif-container img {
+            width: 100%;
+            max-width: 300px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s, transform 1s;
+            will-change: transform, opacity;
+        }
+
+        .fade-out {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        .text {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #d32f2f;
+            transition: margin-top 0.3s ease;
+        }
+
+        .valentine-text {
+            font-size: 28px;
+            margin: 10px 0;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            position: relative;
+            z-index: 100;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        #yesButton {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #noButton {
+            background-color: #f44336;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="valentine-text" id="valentineText">валентинка для любимки</div>
+    <div class="gif-container">
+        <img src="love.gif" alt="Initial GIF" id="gif" class="fade-in">
+    </div>
+    <div class="text" id="text">*имя* ты меня любишь?</div>
+    <div class="buttons">
+        <button id="yesButton">Да</button>
+        <button id="noButton">Нет</button>
+    </div>
+
+    <script>
+        const yesButton = document.getElementById('yesButton');
+        const noButton = document.getElementById('noButton');
+        const text = document.getElementById('text');
+        const gif = document.getElementById('gif');
+
+        let yesScale = 1;
+        let noScale = 1;
+
+        function animateGif(newGif) {
+            newGif.style.opacity = 0;
+            newGif.style.transform = 'translateY(30px)';
+            newGif.style.transition = 'opacity 1s, transform 1s';
+            requestAnimationFrame(() => {
+                newGif.style.opacity = 1;
+                newGif.style.transform = 'translateY(0)';
+            });
+        }
+
+        function animateButtons() {
+            requestAnimationFrame(() => {
+                yesButton.style.opacity = 1;
+                noButton.style.opacity = 1;
+            });
+        }
+
+        yesButton.style.opacity = 0;
+        noButton.style.opacity = 0;
+        animateButtons();
+
+        requestAnimationFrame(() => {
+            gif.style.opacity = 1;
+            gif.style.transform = 'translateY(0)';
+        });
+
+        noButton.addEventListener('click', function onNoClick() {
+            yesScale += 1;
+            yesButton.style.transform = `scale(${yesScale})`;
+
+            noScale -= 0.1;
+            noButton.style.transform = `scale(${noScale})`;
+
+            if (noScale <= 0.1) {
+                noButton.style.display = 'none';
+            }
+
+            if (yesScale > 1.5) {
+                text.textContent = 'эээээй';
+                gif.src = 'angry.gif';
+                animateGif(gif);
+                 // Перемещаем кнопку "нет" вправо
+                const currentPosition = parseInt(window.getComputedStyle(noButton).left, 10) || 0; // Получаем текущее положение
+                noButton.style.position = 'relative'; // Устанавливаем позиционирование, если его нет
+                noButton.style.left = `${currentPosition + 20}px`; // Сдвигаем кнопку на 10px вправо
+            }
+
+            if (yesScale > 2) {
+                text.textContent = 'эээээй';
+                gif.src = 'angry.gif';
+                animateGif(gif);
+                 // Перемещаем кнопку "нет" вправо
+                const currentPosition = parseInt(window.getComputedStyle(noButton).left, 10) || 0; // Получаем текущее положение
+                noButton.style.position = 'relative'; // Устанавливаем позиционирование, если его нет
+                noButton.style.left = `${currentPosition + 30}px`; // Сдвигаем кнопку на 10px вправо
+            }
+            if (yesScale > 3) {
+                text.textContent = 'да ты чегоо';
+                gif.src = 'angry1.gif';
+                animateGif(gif);
+                 // Перемещаем кнопку "нет" вправо
+                const currentPosition = parseInt(window.getComputedStyle(noButton).left, 10) || 0; // Получаем текущее положение
+                noButton.style.position = 'relative'; // Устанавливаем позиционирование, если его нет
+                noButton.style.left = `${currentPosition + 40}px`; // Сдвигаем кнопку на 10px вправо
+            }
+
+
+
+            if (yesScale > 4) {
+                text.textContent = 'ну коть';
+                gif.src = 'angry2.gif';
+                animateGif(gif);
+                 // Перемещаем кнопку "нет" вправо
+                const currentPosition = parseInt(window.getComputedStyle(noButton).left, 10) || 0; // Получаем текущее положение
+                noButton.style.position = 'relative'; // Устанавливаем позиционирование, если его нет
+                noButton.style.left = `${currentPosition + 50}px`; // Сдвигаем кнопку на 10px вправо
+            }
+            if (yesScale > 2) {
+                text.textContent = ' ';
+            }
+            if (yesScale > 4.5) {
+                yesButton.style.position = 'fixed';
+                yesButton.style.top = '0';
+                yesButton.style.left = '0';
+                yesButton.style.width = '100%';
+                yesButton.style.height = '100%';
+                yesButton.style.transform = 'none';
+                yesButton.style.borderRadius = '0';
+                yesButton.style.fontSize = '24px';
+                yesButton.style.zIndex = '1000';
+            }
+        });
+
 yesButton.addEventListener('click', function onYesClick() {
     text.textContent = 'Ты ж моя умничка!';
     text.style.marginTop = '20px';
@@ -7,59 +202,76 @@ yesButton.addEventListener('click', function onYesClick() {
     noButton.remove();
     yesButton.removeEventListener('click', onYesClick);
 
-    // Получаем границы текстового элемента
-    const textRect = text.getBoundingClientRect();
+    // Массив для хранения всех гифок
+    const gifs = [];
 
     // Функция для создания и анимации гифок
     function createDancingGif() {
         const dancingGif = document.createElement('img');
         dancingGif.src = 'kot1.gif'; // Убедитесь, что гифка 'kot1.gif' доступна
         dancingGif.style.position = 'absolute';
-        dancingGif.style.width = '100px'; // Устанавливаем размер гифки
+        dancingGif.style.width = '150px'; // Увеличиваем размер гифки
         dancingGif.style.height = 'auto';
 
-        // Генерация случайных координат, исключая область текста
+        // Начальные координаты (в пределах экрана)
         let x, y;
+        let isOverlapping;
+
         do {
             x = Math.random() * (window.innerWidth - dancingGif.width);
             y = Math.random() * (window.innerHeight - dancingGif.height);
-        } while (
-            x + dancingGif.width > textRect.left &&
-            x < textRect.right &&
-            y + dancingGif.height > textRect.top &&
-            y < textRect.bottom
-        );
+            isOverlapping = false;
+
+            // Проверяем, пересекается ли новая гифка с уже существующими
+            for (const otherGif of gifs) {
+                if (isColliding({ x, y, width: dancingGif.width, height: dancingGif.height }, otherGif)) {
+                    isOverlapping = true;
+                    break;
+                }
+            }
+        } while (isOverlapping); // Повторяем, пока не найдем свободное место
 
         dancingGif.style.left = `${x}px`;
         dancingGif.style.top = `${y}px`;
         document.body.appendChild(dancingGif);
 
-        // Анимация движения гифки
+        // Направление движения (случайные углы)
         let xDirection = Math.random() > 0.5 ? 1 : -1;
         let yDirection = Math.random() > 0.5 ? 1 : -1;
-        const moveGif = () => {
-            let newX = parseFloat(dancingGif.style.left) + xDirection * 1;
-            let newY = parseFloat(dancingGif.style.top) + yDirection * 1;
+        const speed = 2; // Скорость движения
 
-            // Проверка, чтобы гифка не заходила на текст
-            if (
-                newX + dancingGif.width > textRect.left &&
-                newX < textRect.right &&
-                newY + dancingGif.height > textRect.top &&
-                newY < textRect.bottom
-            ) {
-                xDirection *= -1;
-                yDirection *= -1;
-                newX = parseFloat(dancingGif.style.left) + xDirection * 1;
-                newY = parseFloat(dancingGif.style.top) + yDirection * 1;
+        // Добавляем гифку в массив
+        const gifObject = { element: dancingGif, x, y, xDirection, yDirection, width: dancingGif.width, height: dancingGif.height };
+        gifs.push(gifObject);
+
+        // Анимация движения гифки
+        const moveGif = () => {
+            gifObject.x += gifObject.xDirection * speed;
+            gifObject.y += gifObject.yDirection * speed;
+
+            // Отскок от краев экрана
+            if (gifObject.x <= 0 || gifObject.x >= window.innerWidth - gifObject.width) {
+                gifObject.xDirection *= -1; // Меняем направление по X
+                gifObject.x = Math.max(0, Math.min(gifObject.x, window.innerWidth - gifObject.width)); // Фиксируем в пределах экрана
+            }
+            if (gifObject.y <= 0 || gifObject.y >= window.innerHeight - gifObject.height) {
+                gifObject.yDirection *= -1; // Меняем направление по Y
+                gifObject.y = Math.max(0, Math.min(gifObject.y, window.innerHeight - gifObject.height)); // Фиксируем в пределах экрана
             }
 
-            // Проверка границ экрана
-            if (newX < 0 || newX > window.innerWidth - dancingGif.width) xDirection *= -1;
-            if (newY < 0 || newY > window.innerHeight - dancingGif.height) yDirection *= -1;
+            dancingGif.style.left = `${gifObject.x}px`;
+            dancingGif.style.top = `${gifObject.y}px`;
 
-            dancingGif.style.left = `${newX}px`;
-            dancingGif.style.top = `${newY}px`;
+            // Проверка столкновений с другими гифками
+            gifs.forEach(otherGif => {
+                if (otherGif !== gifObject && isColliding(gifObject, otherGif)) {
+                    // Меняем направления при столкновении
+                    gifObject.xDirection *= -1;
+                    gifObject.yDirection *= -1;
+                    otherGif.xDirection *= -1;
+                    otherGif.yDirection *= -1;
+                }
+            });
 
             requestAnimationFrame(moveGif);
         };
@@ -69,7 +281,18 @@ yesButton.addEventListener('click', function onYesClick() {
         // Удаление гифки через некоторое время
         setTimeout(() => {
             dancingGif.remove();
+            gifs.splice(gifs.indexOf(gifObject), 1); // Удаляем гифку из массива
         }, 10000); // Гифка исчезает через 10 секунд
+    }
+
+    // Функция для проверки столкновений
+    function isColliding(gif1, gif2) {
+        return !(
+            gif1.x + gif1.width < gif2.x ||
+            gif1.x > gif2.x + gif2.width ||
+            gif1.y + gif1.height < gif2.y ||
+            gif1.y > gif2.y + gif2.height
+        );
     }
 
     // Создаем несколько гифок
@@ -77,3 +300,12 @@ yesButton.addEventListener('click', function onYesClick() {
         setTimeout(createDancingGif, i * 2000); // Каждая новая гифка появляется через 2 секунды
     }
 });
+        // Предзагрузка изображений
+        const preloadImages = ['love.gif', 'angry.gif', 'angry1.gif', 'angry2.gif', 'love1.gif'];
+        preloadImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    </script>
+</body>
+</html>
